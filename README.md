@@ -48,11 +48,18 @@ detection and cross-checked across signals. If all viewpoint signals are
 inactive, the tool reports *"no viewpoint drift measurable; semantic drift
 only"* rather than forcing a verdict.
 
-## Status — Phase 3 complete (drift time series)
+## Status — all 7 phases implemented
 Build order (see design notes): **[1] ingestion ✅**, **[2] stance + self-gating
-✅**, **[3] drift time series ✅**, [4] FA/GA reference corpus by topic type, [5]
-mature baseline + changepoint onset, [6] validation vs. Wiki-Reliability
-POV-tagged articles, [7] Streamlit dashboard.
+✅**, **[3] drift time series ✅**, **[4] FA/GA reference corpus ✅ (infra +
+proof-of-mechanism run; thresholds not yet production-calibrated)**, **[5] mature
+baseline + changepoint onset ✅**, **[6] POV-tag validation ✅ (self-contained
+harness + small proof run)**, **[7] Streamlit dashboard ✅**.
+
+The pipeline is end-to-end and honestly characterised. The biggest remaining
+work is *not* more features but **rigour**: a larger type-balanced reference
+corpus with fixed-interval snapshots, the **stance-signal validation** against
+POV tags (Phase 6 showed structure/semantic signals alone don't discriminate),
+and human inter-annotator labels for the stance model.
 
 **Phase 1 provides:**
 - A polite, cached MediaWiki client (descriptive UA, `maxlag`, exponential
@@ -121,6 +128,98 @@ heading is 0% for both demo articles (their perspective sections are named
 "Abolition"/"Public opinion"); composition-based alt-view identification is the
 planned refinement.
 
+**Phase 4 provides** (`src/npov_drift/reference/`):
+- **Corpus fetching + bucketing** (`corpus.py`): pulls `Category:Featured
+  articles` (optionally Good articles) and buckets each by topic type using the
+  *same* Phase-1 classifier, so target and reference are bucketed identically.
+- **Per-type normal profile + noise floor** (`profile.py`, pure/tested): from
+  each reference article's due-weight series over its **mature** window (stubs
+  excluded), aggregates per bucket a normal profile (alt-view share, lead share,
+  section count, share concentration) and a **noise floor** = how much stable
+  articles of this type naturally move per step (total-variation of section
+  shares). This is what turns the provisional thresholds into calibrated ones:
+  drift = movement beyond the type's p90 noise floor.
+- **Build orchestration** (`build.py`) + `scripts/phase4_build_reference.py`,
+  persisting `data/out/reference_profile.json`.
+
+Proof-of-mechanism run (7 FAs, due-weight signal): the **science** noise floor
+(TV/step p90 ≈ 0.13) came out far below arts/biography/sports — confirming that
+"normal movement" must be calibrated **per topic type**. But the numbers are
+**not yet production thresholds**, for three honest reasons:
+1. **Snapshot spacing confound** — with only ~6 snapshots over ~20 years,
+   consecutive "mature" snapshots are years apart, so the noise floor conflates
+   per-edit churn with restructuring accumulated over years. Fix: denser /
+   time-normalized snapshots (dovetails with Phase 5's windowing).
+2. **Tiny, skewed corpus** — a random sample of 12 FAs yielded no
+   politics/history/geography buckets. A real run needs a larger, type-balanced
+   corpus (and Good Articles, via `--include-good`).
+3. **Cheap signal only** — the **stance** and **embedding** noise floors aren't
+   populated yet; the machinery exists but the DeBERTa stance pass over a large
+   corpus is the expensive piece.
+
+**Phase 5 provides** (`src/npov_drift/onset/`):
+- **Mature-baseline selection** (`baseline.py`): the first snapshot crossing a
+  body-word maturity floor — never the stub era. Changepoint detection then runs
+  only on the mature window, which directly defuses the Phase-4 spacing confound.
+- **Changepoint detection** (`changepoint.py`): a deterministic mean-shift
+  detector (numpy only) used as the reproducible per-signal onset, plus a
+  **ruptures PELT (rbf)** detector for the fuller changepoint set.
+- **Cross-signal onset reconciliation** (`detect.py`): builds drift series
+  relative to baseline (due-weight departure, alt-view share, semantic departure
+  via MiniLM, optional stance balance), finds each signal's onset, and clusters
+  them into a **consensus onset + agreement count**. If the stance signal is
+  inactive or not run, the report says "structure/semantic drift only" — it
+  never forces a viewpoint verdict.
+
+**Phase 6 provides** (`src/npov_drift/validation/`):
+- **POV-tag ground truth** (`pov_tags.py`): detects NPOV-dispute templates
+  (`{{POV}}`/`{{NPOV}}`/`{{POV-section}}`/`{{Neutrality}}`/`{{Unbalanced}}`) and
+  binary-searches an article's history for the revision that first added the tag
+  — self-contained, no external dataset needed.
+- **Validation metrics** (`evaluate.py`, pure/tested): for POV-tagged articles,
+  does a flagged onset PRECEDE the human tag, and by how much (lead time)? For
+  matched, never-tagged Featured-Article controls, the false-positive rate.
+- `scripts/phase6_validate.py` runs a small, bounded proof on real articles.
+
+Scope honesty: this is a **self-contained proof of the validation pipeline, not
+the full Wiki-Reliability evaluation**. Limitations: (1) small N; (2) it samples
+*currently* tagged articles (a biased set) rather than the full historical
+add/remove event log; (3) a rigorous detection/control-FP rate needs a
+**calibrated significance threshold** (the type noise floor from Phase 4, still
+preliminary); (4) it runs the cheap due-weight + MiniLM signals — the **stance**
+signal (the one that most directly tests *viewpoint* drift) is off by default on
+CPU.
+
+**Proof run finding (honest, and important):** the harness works (it found 658
+tagged articles via template transclusion and binary-searched real tag-add
+dates), but the cheap structure/semantic signals **do not discriminate**
+POV-tagged articles from neutral Featured-Article controls — control onset
+effects (0.37–0.93) overlapped and exceeded the POV ones (≈0.47–0.50), so the
+control false-positive rate was **100%** at threshold 0, and no effect threshold
+cleanly separates them (FAs actually move *more*, being actively developed). The
+"onset precedes tag" leads of 12–15 years are artifacts of unthresholded
+largest-shift detection, not anticipation of the dispute. This empirically
+confirms the project's core thesis: **structural/semantic drift alone cannot
+flag viewpoint disputes — the viewpoint-specific stance signal is required.**
+Validating that properly needs the (CPU-expensive) stance pass over pre-tag
+history plus the calibrated per-type threshold.
+
+**Phase 7 provides** (`src/npov_drift/dashboard/` + `streamlit_app.py`):
+- A view-agnostic, **unit-tested** report builder (`dashboard/report.py`) that
+  assembles every output section for an article, and a thin Streamlit UI.
+- The spec's outputs: **active-signals summary** (which of due-weight / semantic
+  / stance are live), **estimated onset** + per-signal agreement, **drift
+  trajectories** (with the type noise-floor band when available), a **section
+  directional-drift map**, **due-weight section-share changes**, and the **key
+  edits in the drift window** (diff links + editors + comments) for human review.
+- A **hedged plain-language statement** that is always a "candidate flagged for
+  human review", never a determination of bias.
+
+Real-data sanity check (*Capital punishment*, cheap signals): estimated onset
+~2005, and the key-edits panel surfaced the actual responsible edits in that
+window — including a −37 kB blanking by an IP and its +37 kB restoration — each
+with a clickable diff link, exactly the human-review hand-off the tool is for.
+
 ## Install
 Requires Python 3.11+ (3.12 recommended for the later ML stack). CPU-only.
 
@@ -145,6 +244,10 @@ python scripts/phase2_validate.py       # stance metrics on the labeled set
 python scripts/phase2_demo.py           # stance + self-gating on real articles
 python scripts/phase3_demo.py           # drift time series (pure + MiniLM)
 python scripts/phase3_demo.py --with-stance   # also the (slow) stance series
+python scripts/phase4_build_reference.py --per-bucket 2 --max-classify 12   # FA reference profile
+python scripts/phase5_demo.py            # mature baseline + changepoint onset
+python scripts/phase6_validate.py --n-pov 3 --n-control 3   # validate onset vs {{POV}} tags
+streamlit run streamlit_app.py           # Phase 7 interactive dashboard (needs .[viz])
 ```
 First run downloads DeBERTa-v3-MNLI (~440 MB) and/or MiniLM (~80 MB) once.
 

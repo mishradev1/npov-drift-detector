@@ -20,6 +20,11 @@ from pathlib import Path
 # Allow running straight from the repo without installing.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8")  # Wikipedia titles/text aren't cp1252
+except Exception:
+    pass
+
 from npov_drift import config  # noqa: E402
 from npov_drift.ingest.pipeline import ingest_article, make_client  # noqa: E402
 from npov_drift.models import ArticleHistory, RevisionContent  # noqa: E402

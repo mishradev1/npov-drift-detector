@@ -21,6 +21,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8")  # gold sentences may contain non-cp1252 chars
+except Exception:
+    pass
+
 from npov_drift.stance.nli import DEFAULT_MODEL, NLIStanceClassifier  # noqa: E402
 
 LABELS = ["favorable", "critical", "neutral"]
