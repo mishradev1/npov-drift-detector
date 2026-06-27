@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "npov-drift-detector"
+version = "0.1.0"
+description = "Detect WHEN a Wikipedia article's viewpoint balance / semantic content began drifting over time, and which edits are responsible. A candidate-flagger for human review, NOT an NPOV classifier."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "requests>=2.31",
+    "mwparserfromhell>=0.6.6",
+]
+
+[project.optional-dependencies]
+# Heavy ML stack lands in later phases (stance model, embeddings, changepoints).
+# Kept optional so Phase 1 (ingestion) installs fast and runs CPU-only with no torch.
+# All CPU-only. Phase 2 uses transformers (zero-shot NLI); DeBERTa-v3 tokenizers
+# need sentencepiece + protobuf. sentence-transformers/ruptures are for Phase 3+.
+ml = [
+    "numpy>=1.26",
+    "scikit-learn>=1.4",
+    "torch>=2.2",
+    "transformers>=4.40",
+    "sentencepiece>=0.2",
+    "protobuf>=4.0",
+    "sentence-transformers>=2.6",
+    "ruptures>=1.1",
+]
+viz = [
+    "plotly>=5.20",
+    "streamlit>=1.33",
+]
+dev = [
+    "pytest>=8.0",
+    # Phase 3 deterministic tests use the fake encoder + KMeans (CPU, no torch,
+    # no network/GPU), so numpy + scikit-learn are part of the test baseline.
+    "numpy>=1.26",
+    "scikit-learn>=1.4",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,70 @@
+{"id": "g001", "topic": "the policy", "type": "politics", "sentence": "Supporters hailed the policy as a landmark achievement that lifted millions out of poverty.", "gold": "favorable"}
+{"id": "g002", "topic": "the vaccine", "type": "medicine", "sentence": "Clinicians praised the vaccine for dramatically reducing severe illness.", "gold": "favorable"}
+{"id": "g003", "topic": "the senator", "type": "biography", "sentence": "Colleagues admired the senator for her principled and effective leadership.", "gold": "favorable"}
+{"id": "g004", "topic": "the film", "type": "arts", "sentence": "Critics celebrated the film as a masterpiece of modern cinema.", "gold": "favorable"}
+{"id": "g005", "topic": "the company", "type": "society", "sentence": "Analysts commended the company for its industry-leading safety record.", "gold": "favorable"}
+{"id": "g006", "topic": "the reform", "type": "politics", "sentence": "The reform was widely endorsed as a fair and overdue correction.", "gold": "favorable"}
+{"id": "g007", "topic": "the theory", "type": "science", "sentence": "The theory was acclaimed for elegantly unifying previously disparate observations.", "gold": "favorable"}
+{"id": "g008", "topic": "the treaty", "type": "politics", "sentence": "Diplomats lauded the treaty as a historic step toward lasting peace.", "gold": "favorable"}
+{"id": "g009", "topic": "the software", "type": "society", "sentence": "Reviewers praised the software for its intuitive design and reliability.", "gold": "favorable"}
+{"id": "g010", "topic": "the leader", "type": "biography", "sentence": "He is remembered as a visionary who transformed the nation for the better.", "gold": "favorable"}
+{"id": "g011", "topic": "the program", "type": "politics", "sentence": "Economists credited the program with a remarkable and sustained recovery.", "gold": "favorable"}
+{"id": "g012", "topic": "the album", "type": "arts", "sentence": "The album was hailed as a triumphant return to form.", "gold": "favorable"}
+{"id": "g013", "topic": "the initiative", "type": "society", "sentence": "Advocates praised the initiative as compassionate and forward-thinking.", "gold": "favorable"}
+{"id": "g014", "topic": "the general", "type": "history", "sentence": "Historians regard the general as a brilliant and humane commander.", "gold": "favorable"}
+{"id": "g015", "topic": "the device", "type": "science", "sentence": "Engineers championed the device as a breakthrough in clean energy.", "gold": "favorable"}
+{"id": "g016", "topic": "the ruling", "type": "politics", "sentence": "Civil rights groups welcomed the ruling as a victory for equality.", "gold": "favorable"}
+{"id": "g017", "topic": "the policy", "type": "politics", "sentence": "Its defenders argue the policy has been a resounding success.", "gold": "favorable"}
+{"id": "g018", "topic": "the vaccine", "type": "medicine", "sentence": "Public health officials enthusiastically recommended the vaccine for all eligible adults.", "gold": "favorable"}
+{"id": "g019", "topic": "the athlete", "type": "sports", "sentence": "Fans celebrated the athlete as the greatest to ever play the game.", "gold": "favorable"}
+{"id": "g020", "topic": "the constitution", "type": "politics", "sentence": "Scholars revere the constitution as a model of enlightened governance.", "gold": "favorable"}
+{"id": "g021", "topic": "the policy", "type": "politics", "sentence": "Critics denounced the policy as cruel, ineffective, and discriminatory.", "gold": "critical"}
+{"id": "g022", "topic": "the regime", "type": "politics", "sentence": "The regime was widely condemned for its brutal suppression of dissent.", "gold": "critical"}
+{"id": "g023", "topic": "the drug", "type": "medicine", "sentence": "Researchers warned that the drug was dangerously overprescribed and poorly tested.", "gold": "critical"}
+{"id": "g024", "topic": "the company", "type": "society", "sentence": "The company was excoriated for knowingly concealing the defect from regulators.", "gold": "critical"}
+{"id": "g025", "topic": "the senator", "type": "biography", "sentence": "Opponents accused the senator of corruption and self-dealing.", "gold": "critical"}
+{"id": "g026", "topic": "the film", "type": "arts", "sentence": "Reviewers panned the film as a tedious and incoherent mess.", "gold": "critical"}
+{"id": "g027", "topic": "the war", "type": "history", "sentence": "The war is often condemned as a senseless and avoidable catastrophe.", "gold": "critical"}
+{"id": "g028", "topic": "the theory", "type": "science", "sentence": "The theory was discredited as pseudoscience lacking any empirical support.", "gold": "critical"}
+{"id": "g029", "topic": "the reform", "type": "politics", "sentence": "Detractors derided the reform as a reckless giveaway to the wealthy.", "gold": "critical"}
+{"id": "g030", "topic": "the leader", "type": "biography", "sentence": "He is widely reviled as a tyrant responsible for immense suffering.", "gold": "critical"}
+{"id": "g031", "topic": "the program", "type": "politics", "sentence": "Auditors blasted the program as wasteful and riddled with fraud.", "gold": "critical"}
+{"id": "g032", "topic": "the software", "type": "society", "sentence": "Users complained that the software was bloated, buggy, and invasive.", "gold": "critical"}
+{"id": "g033", "topic": "the treaty", "type": "politics", "sentence": "Critics argued the treaty was a humiliating capitulation that solved nothing.", "gold": "critical"}
+{"id": "g034", "topic": "the ruling", "type": "politics", "sentence": "Legal scholars assailed the ruling as a dangerous overreach.", "gold": "critical"}
+{"id": "g035", "topic": "the corporation", "type": "society", "sentence": "The corporation faced fierce condemnation for exploiting its workers.", "gold": "critical"}
+{"id": "g036", "topic": "the policy", "type": "politics", "sentence": "The policy has been criticized as both unworkable and unjust.", "gold": "critical"}
+{"id": "g037", "topic": "the device", "type": "science", "sentence": "Experts dismissed the device as a fraudulent and unworkable gimmick.", "gold": "critical"}
+{"id": "g038", "topic": "the campaign", "type": "politics", "sentence": "The campaign was attacked for spreading misinformation and stoking fear.", "gold": "critical"}
+{"id": "g039", "topic": "the album", "type": "arts", "sentence": "The album was savaged by critics as derivative and lifeless.", "gold": "critical"}
+{"id": "g040", "topic": "the bill", "type": "politics", "sentence": "Opponents blasted the bill as an authoritarian assault on civil liberties.", "gold": "critical"}
+{"id": "g041", "topic": "sodium chloride", "type": "science", "sentence": "Sodium chloride crystallizes in a face-centered cubic lattice.", "gold": "neutral"}
+{"id": "g042", "topic": "the theorem", "type": "science", "sentence": "The theorem states that the square of the hypotenuse equals the sum of the squares of the other two sides.", "gold": "neutral"}
+{"id": "g043", "topic": "the policy", "type": "politics", "sentence": "The policy was enacted in 2010 and amended twice thereafter.", "gold": "neutral"}
+{"id": "g044", "topic": "the company", "type": "society", "sentence": "The company employs roughly 40,000 people across twelve countries.", "gold": "neutral"}
+{"id": "g045", "topic": "the senator", "type": "biography", "sentence": "The senator was born in 1955 and elected to office in 1998.", "gold": "neutral"}
+{"id": "g046", "topic": "the war", "type": "history", "sentence": "The war began in 1914 and ended four years later.", "gold": "neutral"}
+{"id": "g047", "topic": "the film", "type": "arts", "sentence": "The film was released in 1994 and runs for 142 minutes.", "gold": "neutral"}
+{"id": "g048", "topic": "the element", "type": "science", "sentence": "The element has an atomic number of 11 and is highly reactive.", "gold": "neutral"}
+{"id": "g049", "topic": "the treaty", "type": "politics", "sentence": "The treaty was signed by twelve nations in Geneva.", "gold": "neutral"}
+{"id": "g050", "topic": "the city", "type": "geography", "sentence": "The city lies at the confluence of two rivers in the north of the country.", "gold": "neutral"}
+{"id": "g051", "topic": "the species", "type": "science", "sentence": "The species is found primarily in temperate coastal wetlands.", "gold": "neutral"}
+{"id": "g052", "topic": "the algorithm", "type": "science", "sentence": "The algorithm runs in logarithmic time on sorted input.", "gold": "neutral"}
+{"id": "g053", "topic": "the festival", "type": "society", "sentence": "The festival is held annually in late summer.", "gold": "neutral"}
+{"id": "g054", "topic": "the bridge", "type": "geography", "sentence": "The bridge spans 1,280 meters and opened in 1937.", "gold": "neutral"}
+{"id": "g055", "topic": "the drug", "type": "medicine", "sentence": "The drug can cause nausea and dizziness in some patients.", "gold": "neutral", "hard": true}
+{"id": "g056", "topic": "the reaction", "type": "science", "sentence": "The reaction is highly exothermic and can cause severe burns.", "gold": "neutral", "hard": true}
+{"id": "g057", "topic": "the policy", "type": "politics", "sentence": "The policy was repealed three years after it took effect.", "gold": "neutral", "hard": true}
+{"id": "g058", "topic": "the vaccine", "type": "medicine", "sentence": "In rare cases the vaccine has been associated with mild allergic reactions.", "gold": "neutral", "hard": true}
+{"id": "g059", "topic": "the war", "type": "history", "sentence": "An estimated 16 million people died during the war.", "gold": "neutral", "hard": true}
+{"id": "g060", "topic": "the company", "type": "society", "sentence": "The company reported a net loss in three of the past five years.", "gold": "neutral", "hard": true}
+{"id": "g061", "topic": "the bridge", "type": "geography", "sentence": "The bridge was closed for two months following structural damage.", "gold": "neutral", "hard": true}
+{"id": "g062", "topic": "the medication", "type": "medicine", "sentence": "The medication is contraindicated for patients with kidney disease.", "gold": "neutral", "hard": true}
+{"id": "g063", "topic": "the policy", "type": "politics", "sentence": "Unemployment rose by two percentage points during the policy's first year.", "gold": "neutral", "hard": true}
+{"id": "g064", "topic": "the device", "type": "science", "sentence": "The device consumes more power than comparable models.", "gold": "neutral", "hard": true}
+{"id": "g065", "topic": "the treaty", "type": "politics", "sentence": "Two signatories withdrew from the treaty within a decade.", "gold": "neutral", "hard": true}
+{"id": "g066", "topic": "the drug", "type": "medicine", "sentence": "The drug reduced symptoms in 70 percent of trial participants.", "gold": "neutral", "hard": true}
+{"id": "g067", "topic": "the law", "type": "politics", "sentence": "The law expanded voting access while tightening identification requirements.", "gold": "neutral", "hard": true}
+{"id": "g068", "topic": "the satellite", "type": "science", "sentence": "The satellite stopped transmitting data after eight years in orbit.", "gold": "neutral", "hard": true}
+{"id": "g069", "topic": "the museum", "type": "arts", "sentence": "The museum's annual attendance has declined since 2019.", "gold": "neutral", "hard": true}
+{"id": "g070", "topic": "the dam", "type": "geography", "sentence": "Construction of the dam displaced about 1.3 million residents.", "gold": "neutral", "hard": true}
