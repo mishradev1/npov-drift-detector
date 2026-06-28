@@ -107,10 +107,12 @@ def main():
         st.header("Article")
         title = st.text_input("Title", value="Capital punishment")
         min_words = st.slider("Maturity floor (body words)", 200, 3000, 800, 100)
-        max_snapshots = st.slider("Content snapshots", 8, 40, 24, 2)
+        max_snapshots = st.slider("Content snapshots", 8, 40, 16, 2)
         st.header("Signals")
-        use_semantic = st.checkbox("Semantic drift (MiniLM, ~slower)", value=True)
-        use_stance = st.checkbox("Stance / viewpoint (DeBERTa, SLOW on CPU)", value=False)
+        st.caption("Due-weight is always on and instant. Enable the others once the "
+                   "fast view loads — they run on CPU and take longer.")
+        use_semantic = st.checkbox("Semantic drift (MiniLM, ~10-40s)", value=False)
+        use_stance = st.checkbox("Stance / viewpoint (DeBERTa, SLOW: minutes on CPU)", value=False)
         run = st.button("Analyse", type="primary")
 
     if not run:

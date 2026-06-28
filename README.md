@@ -223,11 +223,23 @@ with a clickable diff link, exactly the human-review hand-off the tool is for.
 ## Install
 Requires Python 3.11+ (3.12 recommended for the later ML stack). CPU-only.
 
+### Option A — `requirements.txt` (simplest, for sharing)
 ```bash
 py -3.12 -m venv .venv
 .venv\Scripts\activate          # Windows
-pip install -e ".[dev]"          # Phase 1 + tests
-# Later phases:  pip install -e ".[dev,ml,viz]"
+source .venv/bin/activate        # macOS / Linux
+pip install -r requirements.txt
+pip install -e .                 # install the package itself
+streamlit run streamlit_app.py   # launch the dashboard
+```
+First run downloads DeBERTa-v3-MNLI (~440 MB) and MiniLM (~80 MB) once; everything is cached afterwards.
+
+### Option B — editable install (for development)
+```bash
+py -3.12 -m venv .venv
+.venv\Scripts\activate          # Windows
+pip install -e ".[dev]"          # Phase 1 + tests only
+pip install -e ".[dev,ml,viz]"   # all phases including dashboard
 ```
 
 ## Run the Phase 1 demo (real data)

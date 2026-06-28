@@ -15,6 +15,7 @@ from typing import Callable, Optional
 from urllib.parse import quote
 
 from ..embedding import SentenceEncoder
+from ..ingest.sampling import _evenly_spaced_indices
 from ..models import ArticleHistory
 from ..onset.detect import OnsetReport, detect_drift_onset
 from ..series.section_drift import SectionDrift, section_drift
@@ -112,9 +113,16 @@ def build_drift_report(
     sentence_fn: Optional[Callable] = None,
     min_words: int = 800,
     reference_profile: Optional[dict] = None,
+    max_analysis_snapshots: Optional[int] = 12,
 ) -> DriftReport:
+    # Bound the snapshots used for the (CPU-heavy) embedding/stance signals so the
+    # dashboard stays responsive; key-edits below still use the full revision log.
+    snaps = hist.snapshots
+    if max_analysis_snapshots and len(snaps) > max_analysis_snapshots:
+        snaps = [snaps[i] for i in _evenly_spaced_indices(len(snaps), max_analysis_snapshots)]
+
     onset = detect_drift_onset(
-        hist.snapshots,
+        snaps,
         encoder=encoder,
         classifier=classifier,
         topic=topic,
@@ -145,8 +153,8 @@ def build_drift_report(
         date_span=hist.date_span(),
         active_signals=active_signals,
         onset=onset,
-        share_series=section_share_series(hist.snapshots),
-        section_drifts=section_drift(hist.snapshots, encoder) if encoder is not None else [],
+        share_series=section_share_series(snaps),
+        section_drifts=section_drift(snaps, encoder) if encoder is not None else [],
         key_edits=_key_edits(hist, onset.consensus_timestamp),
         hedged_statement=_hedged_statement(onset, bucket),
         reference_noise_floor=ref_noise,
